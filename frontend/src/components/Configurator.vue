@@ -1,40 +1,47 @@
 <script setup lang="ts">
-import { ref, Ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useCoffeeMachineStore } from '../stores/index';
 
 const { addConfigs } = useCoffeeMachineStore()
 
-const size: Ref<string> = ref('стандартный');
-const drinksCount: Ref<number> = ref(6);
+const configurations = ref([]);
+const selectedOptions = ref({})
 
 const addToStorage = () => {
     addConfigs({
         id: Date.now(),
-        size: size.value, 
-        drinksCount: drinksCount.value
+        size: selectedOptions.value.size,
+        drinksCount: selectedOptions.value.drinksCount,
+        coffeeTypes: selectedOptions.value.coffeeTypes
+        
     })
 };
+
+onMounted(async () => {
+    try {
+        const response = await fetch('http://localhost:3000/api/default-configurations');
+        if (response.ok) {
+            configurations.value = await response.json();
+        } else {
+            console.error('Failed to fetch configurations');
+        }
+    } catch (error) {
+        console.error('Error fetching configurations:', error);
+    }
+});
+
 </script>
 
 <template>
     <div class="configurator__container">
         <h1 class="configurator__title">Конфигуратор кофемашины</h1>
-        <h2 class="configurator__output">{{ size }} - {{ drinksCount }} напитков</h2>
+        {{ configurations }}
+        <h2 class="configurator__output">{{ selectedOptions.size }} {{  selectedOptions.drinksCount }} {{ selectedOptions.coffeeTypes }} напитков</h2>
 
-        <div class="configurator__size-container">
-            <label class="configurator__size-title">Размер:</label>
-            <select class="configurator__size-select" v-model="size">
-                <option class="configurator__size-option" value="стандартный">Стандартный</option>
-                <option class="configurator__size-option" value="увеличенный">Увеличенный</option>
-            </select>
-        </div>
-
-        <div class="configurator__counter-container">
-            <label class="configurator__counter-title">Количество напитков:</label>
-            <select class="configurator__counter-select" v-model="drinksCount">
-                <option class="configurator__counter-option" :value="parseInt('6')">6</option>
-                <option class="configurator__counter-option" :value="parseInt('8')">8</option>
-                <option class="configurator__counter-option" :value="parseInt('12')">12</option>
+        <div v-for="config in configurations" :key="config.id" class="configurator__config-container">
+            <label class="configurator__config-title">{{ config.id }}:</label>
+            <select class="configurator__config-select" v-model="selectedOptions[config.id]">
+                <option class="configurator__config-option" v-for="option in config.options" :key="option" :value="option">{{ option }}</option>
             </select>
         </div>
 

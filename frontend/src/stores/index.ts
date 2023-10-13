@@ -8,7 +8,8 @@ const data: Data = reactive({
 });
 
 export const useCoffeeMachineStore = defineStore('coffeeMachine', () => {
-    const addConfigs = (config: Config) => {
+    const addConfigs = (config) => {
+        console.log(config)
         data.configs.push(config)
     }
     const editCounter = (action: CountAction, id: number) => {
