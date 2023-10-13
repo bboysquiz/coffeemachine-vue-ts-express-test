@@ -7,10 +7,10 @@
             <nav class="header-nav">
                 <ul class="header-list">
                     <li class="header__list-item">
-                        <router-link class="saved-configuration-link" :to="{ name: 'configurator' }"></router-link>
+                        <router-link class="saved-configuration-link" :to="{ name: 'configurator' }">Configurator</router-link>
                     </li>
                     <li class="header__list-item">
-                        <router-link class="saved-configuration-link" :to="{ name: 'savedconfigs' }"></router-link>
+                        <router-link class="saved-configuration-link" :to="{ name: 'savedconfigs' }">Configs</router-link>
                     </li>
                 </ul>
             </nav>
