@@ -13,7 +13,7 @@ const changeCount = (action: CountAction, id: number) => {
     <div class="saved-configuration__container">
         <h1 class="saved-configuration__title">Сохраненные конфигурации</h1>
         <ul class="saved-configuration__list">
-            <li v-for='item in data.configs' :key="item.id" class="saved-configuration__list-item">
+            <li v-for='item in data.savedConfigs' :key="item.id" class="saved-configuration__list-item">
                 <div class="item-size">
                     <h2 class="item-title">Size:</h2>
                     <h2 class="item-value">{{item.size}}</h2>

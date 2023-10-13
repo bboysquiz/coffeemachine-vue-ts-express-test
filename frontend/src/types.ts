@@ -1,4 +1,5 @@
 export interface Data {
+    savedConfigs: Config[],
     configs: Config[]
 }
 export interface Config {

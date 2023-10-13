@@ -3,7 +3,7 @@ import { reactive, onMounted } from 'vue';
 import { useCoffeeMachineStore } from '../stores/index';
 import { State } from '../types'
 
-const { addConfigs } = useCoffeeMachineStore()
+const { addConfigs, getConfigs, data } = useCoffeeMachineStore()
 
 const state = reactive<State>({
     configurations: [],
@@ -21,16 +21,8 @@ const addToStorage = () => {
 };
 
 onMounted(async () => {
-    try {
-        const response = await fetch('http://localhost:3000/api/default-configurations');
-        if (response.ok) {
-            state.configurations = await response.json();
-        } else {
-            console.error('Failed to fetch configurations');
-        }
-    } catch (error) {
-        console.error('Error fetching configurations:', error);
-    }
+    await getConfigs()
+    state.configurations = data.configs
 });
 
 </script>
