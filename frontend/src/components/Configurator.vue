@@ -5,10 +5,11 @@ import { useCoffeeMachineStore } from '../stores/index';
 const { addConfigs } = useCoffeeMachineStore()
 
 const size: Ref<string> = ref('стандартный');
-const drinksCount: Ref<string> = ref('6');
+const drinksCount: Ref<number> = ref(6);
 
 const addToStorage = () => {
     addConfigs({
+        id: Date.now(),
         size: size.value, 
         drinksCount: drinksCount.value
     })
@@ -31,9 +32,9 @@ const addToStorage = () => {
         <div class="configurator__counter-container">
             <label class="configurator__counter-title">Количество напитков:</label>
             <select class="configurator__counter-select" v-model="drinksCount">
-                <option class="configurator__counter-option" value="6">6</option>
-                <option class="configurator__counter-option" value="8">8</option>
-                <option class="configurator__counter-option" value="12">12</option>
+                <option class="configurator__counter-option" :value="parseInt('6')">6</option>
+                <option class="configurator__counter-option" :value="parseInt('8')">8</option>
+                <option class="configurator__counter-option" :value="parseInt('12')">12</option>
             </select>
         </div>
 

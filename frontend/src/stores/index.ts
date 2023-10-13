@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import {reactive} from 'vue'
-import { Data, Config } from '../types';
+import { Data, Config, CountAction } from '../types';
 
 
 const data: Data = reactive({
@@ -11,5 +11,13 @@ export const useCoffeeMachineStore = defineStore('coffeeMachine', () => {
     const addConfigs = (config: Config) => {
         data.configs.push(config)
     }
-    return { addConfigs, data }
+    const editCounter = (action: CountAction, id: number) => {
+        const config = data.configs.find(config => config.id === id)
+        if (config) {
+            action === 'increment' ? config.drinksCount += 1 : config.drinksCount -= 1;
+        } else {
+            console.error(`Config with id ${id} does not exist.`);
+        }
+    }
+    return { addConfigs, data, editCounter }
 });
