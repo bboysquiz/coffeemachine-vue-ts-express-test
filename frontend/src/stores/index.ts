@@ -20,4 +20,6 @@ export const useCoffeeMachineStore = defineStore('coffeeMachine', () => {
         }
     }
     return { addConfigs, data, editCounter }
+}, {
+    persist: true
 });
