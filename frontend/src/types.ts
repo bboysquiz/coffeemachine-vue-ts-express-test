@@ -1,3 +1,7 @@
 export interface Data {
-    configs: config[]
+    configs: Config[]
+}
+export interface Config {
+    size: string, 
+    drinksCount: string
 }

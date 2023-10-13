@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import {reactive} from 'vue'
-import { Data } from '../types';
+import { Data, Config } from '../types';
 
 
 const data: Data = reactive({
@@ -8,8 +8,8 @@ const data: Data = reactive({
 });
 
 export const useCoffeeMachineStore = defineStore('coffeeMachine', () => {
-    const getConfigs = async () => {
-
+    const addConfigs = (config: Config) => {
+        data.configs.push(config)
     }
-    return { getConfigs, data }
+    return { addConfigs, data }
 });
