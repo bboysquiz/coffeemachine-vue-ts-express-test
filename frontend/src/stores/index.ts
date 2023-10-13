@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { reactive } from 'vue'
 import { Data, Config, CountAction } from '../types';
+import axios from 'axios';
 
 
 const data: Data = reactive({
@@ -23,7 +24,7 @@ export const useCoffeeMachineStore = defineStore('coffeeMachine', () => {
     }
     const getConfigs = async () => {
         try {
-            const response = await fetch('http://localhost:3000/api/default-configurations');
+            const response = await axios.get('http://localhost:3000/api/default-configurations');
             if (response.ok) {
                 data.configs = await response.json();
             } else {
