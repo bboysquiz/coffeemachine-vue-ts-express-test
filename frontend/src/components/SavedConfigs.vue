@@ -13,18 +13,14 @@ const changeCount = (action: CountAction, id: number) => {
     <div class="saved-configuration__container">
         <h1 class="saved-configuration__title">Сохраненные конфигурации</h1>
         <ul class="saved-configuration__list">
-            <li v-for='item in data.savedConfigs' :key="item.id" class="saved-configuration__list-item">
-                <div class="item-size">
-                    <h2 class="item-title">Size:</h2>
-                    <h2 class="item-value">{{item.size}}</h2>
+            <li v-for="(item, index) in data.savedConfigs" :key="index" class="saved-configuration__list-item">
+                <div v-for="(value, key) in item" :key="key"  class="item-option">
+                    <h2 class="item-title">{{ key }}</h2>
+                    <h2 class="item-value">{{ value }}</h2>
                 </div>
-                <div class="item-count">
-                    <h2 class="item-title">Count:</h2>
-                    <h2 class="item-value">{{item.drinksCount}}</h2>
-                    <div class="item-button-wrapper">
-                        <button class="item-count-button" @click="changeCount('increment', item.id)">+</button>
-                        <button class="item-count-button" @click="changeCount('decrement', item.id)">-</button>
-                    </div>
+                <div class="item-button-wrapper">
+                    <button class="item-count-button" @click="changeCount('increment', item.id)">+</button>
+                    <button class="item-count-button" @click="changeCount('decrement', item.id)">-</button>
                 </div>
             </li>
         </ul>

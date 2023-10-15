@@ -25,8 +25,8 @@ export const useCoffeeMachineStore = defineStore('coffeeMachine', () => {
     const getConfigs = async () => {
         try {
             const response = await axios.get('http://localhost:3000/api/default-configurations');
-            if (response.ok) {
-                data.configs = await response.json();
+            if (response) {
+                data.configs = await response.data;
             } else {
                 console.error('Failed to fetch configurations');
             }
