@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, onMounted } from 'vue';
+import { reactive, onMounted, Ref, ref } from 'vue';
 import { useCoffeeMachineStore } from '../stores/index';
 import { State } from '../types'
 import Popup from './Popup.vue';
@@ -11,6 +11,14 @@ const state = reactive<State>({
     configurations: [],
     selectedOptions: { id: -1 }
 });
+const isCloseHovered: Ref<boolean> = ref(false);
+
+const handleButtonMouseEnter = () => {
+    isCloseHovered.value = true;
+}
+const handleButtonMouseLeave = () => {
+    isCloseHovered.value = false;
+}
 
 const addToStorage = () => {
     if (state.selectedOptions.size && state.selectedOptions.drinksCount && state.selectedOptions.coffeeTypes) {
@@ -47,7 +55,9 @@ onMounted(async () => {
             </select>
         </div>
 
-        <button class="configurator__button" @click="addToStorage">Добавить в хранилище</button>
+        <button :class="{ 'hovered': isCloseHovered }" @mouseenter="handleButtonMouseEnter"
+            @mouseleave="handleButtonMouseLeave" class="configurator__button" @click="addToStorage">Добавить в
+            хранилище</button>
 
         <Popup v-show="data.popupDisplay" />
         <ErrorPopup v-show="data.popupErrorDisplay" />
@@ -79,4 +89,24 @@ onMounted(async () => {
     flex-wrap: wrap;
     width: 100%;
     margin-top: 20px;
-}</style>
+}
+
+.configurator__button {
+    width: 200px;
+    height: 30px;
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0px 7px 12px 0px rgba(100, 100, 111, 0.2);
+    margin-top: 30px;
+}
+.configurator__config-select {
+    margin-left: 10px;
+}
+
+.configurator__button.hovered {
+    transition: .5s;
+    box-shadow: 0px 7px 12px 0px rgba(100, 100, 111, 0.8);
+}
+</style>
