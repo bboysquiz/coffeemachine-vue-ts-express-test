@@ -2,11 +2,12 @@
 import { useCoffeeMachineStore } from '../stores/index';
 import { CountAction } from '../types'
 
-const { data, editCounter } = useCoffeeMachineStore()
+const { data, editCounter, deleteItem } = useCoffeeMachineStore()
 
 const changeCount = (action: CountAction, id: number) => {
     editCounter(action, id)
 }
+
 </script>
 
 <template>
@@ -22,6 +23,7 @@ const changeCount = (action: CountAction, id: number) => {
                         <button class="item-count-button" @click="changeCount('decrement', item.id)">-</button>
                     </div>
                 </div>
+                <button @click='deleteItem(item.id)' class="item-delete">delete</button>
             </li>
         </ul>
     </div>
@@ -86,5 +88,8 @@ const changeCount = (action: CountAction, id: number) => {
 }
 .item-value {
     margin-left: 20px;
+}
+.item-delete {
+
 }
 </style>

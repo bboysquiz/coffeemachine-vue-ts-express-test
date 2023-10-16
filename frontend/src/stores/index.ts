@@ -13,7 +13,6 @@ const data: Data = reactive({
 
 export const useCoffeeMachineStore = defineStore('coffeeMachine', () => {
     const addConfigs = (config: Config) => {
-        console.log(config)
         data.savedConfigs.push(config)
     }
     const editCounter = (action: CountAction, id: number) => {
@@ -42,7 +41,11 @@ export const useCoffeeMachineStore = defineStore('coffeeMachine', () => {
     const toggleErrorPopup = () => {
         data.popupErrorDisplay = !data.popupErrorDisplay
     }
-    return { addConfigs, data, editCounter, getConfigs, togglePopup, toggleErrorPopup }
+    const deleteItem = (id) => {
+        data.savedConfigs = data.savedConfigs.filter((item) => item.id !== id)
+        console.log(id)
+    }
+    return { addConfigs, data, editCounter, getConfigs, togglePopup, toggleErrorPopup, deleteItem}
 }, {
     persist: true
 });
