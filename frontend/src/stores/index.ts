@@ -7,7 +7,8 @@ import axios from 'axios';
 const data: Data = reactive({
     savedConfigs: [],
     configs: [],
-    popupDisplay: false
+    popupDisplay: false,
+    popupErrorDisplay: false,
 });
 
 export const useCoffeeMachineStore = defineStore('coffeeMachine', () => {
@@ -38,7 +39,10 @@ export const useCoffeeMachineStore = defineStore('coffeeMachine', () => {
     const togglePopup = () => {
         data.popupDisplay = !data.popupDisplay
     }
-    return { addConfigs, data, editCounter, getConfigs, togglePopup }
+    const toggleErrorPopup = () => {
+        data.popupErrorDisplay = !data.popupErrorDisplay
+    }
+    return { addConfigs, data, editCounter, getConfigs, togglePopup, toggleErrorPopup }
 }, {
     persist: true
 });
