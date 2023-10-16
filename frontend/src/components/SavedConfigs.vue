@@ -15,12 +15,12 @@ const changeCount = (action: CountAction, id: number) => {
         <ul class="saved-configuration__list">
             <li v-for="(item, index) in data.savedConfigs" :key="index" class="saved-configuration__list-item">
                 <div v-for="(value, key) in item" :key="key"  class="item-option">
-                    <h2 class="item-title">{{ key }}</h2>
+                    <h2 class="item-title">{{ key }}:</h2>
                     <h2 class="item-value">{{ value }}</h2>
-                </div>
-                <div class="item-button-wrapper">
-                    <button class="item-count-button" @click="changeCount('increment', item.id)">+</button>
-                    <button class="item-count-button" @click="changeCount('decrement', item.id)">-</button>
+                    <div v-if="key === 'drinksCount'" class="item-button-wrapper">
+                        <button class="item-count-button" @click="changeCount('increment', item.id)">+</button>
+                        <button class="item-count-button" @click="changeCount('decrement', item.id)">-</button>
+                    </div>
                 </div>
             </li>
         </ul>
@@ -50,6 +50,12 @@ const changeCount = (action: CountAction, id: number) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    box-shadow: 0px 7px 12px 0px rgba(100, 100, 111, 0.2);
+    padding: 15px;
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 10px;
 }
 .item-size{
     display: flex;
@@ -68,9 +74,17 @@ const changeCount = (action: CountAction, id: number) => {
     justify-content: space-between;
     width: 70px;
     align-items: center;
+    margin-left: 30px;
 }
 .item-count-button{
     width: 30px;
     height: 30px;
+}
+.item-option{
+    width: 100%;
+    display: flex;
+}
+.item-value {
+    margin-left: 20px;
 }
 </style>

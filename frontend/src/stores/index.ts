@@ -6,7 +6,8 @@ import axios from 'axios';
 
 const data: Data = reactive({
     savedConfigs: [],
-    configs: []
+    configs: [],
+    popupDisplay: false
 });
 
 export const useCoffeeMachineStore = defineStore('coffeeMachine', () => {
@@ -34,7 +35,10 @@ export const useCoffeeMachineStore = defineStore('coffeeMachine', () => {
             console.error('Error fetching configurations:', error);
         }
     }
-    return { addConfigs, data, editCounter, getConfigs }
+    const togglePopup = () => {
+        data.popupDisplay = !data.popupDisplay
+    }
+    return { addConfigs, data, editCounter, getConfigs, togglePopup }
 }, {
     persist: true
 });
