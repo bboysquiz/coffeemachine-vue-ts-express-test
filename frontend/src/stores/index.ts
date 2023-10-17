@@ -41,9 +41,8 @@ export const useCoffeeMachineStore = defineStore('coffeeMachine', () => {
     const toggleErrorPopup = () => {
         data.popupErrorDisplay = !data.popupErrorDisplay
     }
-    const deleteItem = (id) => {
-        data.savedConfigs = data.savedConfigs.filter((item) => item.id !== id)
-        console.log(id)
+    const deleteItem = (id: number) => {
+        data.savedConfigs = data.savedConfigs.filter((item: Config) => item.id !== id)
     }
     return { addConfigs, data, editCounter, getConfigs, togglePopup, toggleErrorPopup, deleteItem}
 }, {
