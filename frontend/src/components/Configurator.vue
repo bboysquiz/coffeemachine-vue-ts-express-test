@@ -11,13 +11,13 @@ const state = reactive<State>({
     configurations: [],
     selectedOptions: { id: -1 }
 });
-const isCloseHovered: Ref<boolean> = ref(false);
+const isButtonHovered: Ref<boolean> = ref(false);
 
 const handleButtonMouseEnter = () => {
-    isCloseHovered.value = true;
+    isButtonHovered.value = true;
 }
 const handleButtonMouseLeave = () => {
-    isCloseHovered.value = false;
+    isButtonHovered.value = false;
 }
 
 const addToStorage = () => {
@@ -55,7 +55,7 @@ onMounted(async () => {
             </select>
         </div>
 
-        <button :class="{ 'hovered': isCloseHovered }" @mouseenter="handleButtonMouseEnter"
+        <button :class="{ 'hovered': isButtonHovered }" @mouseenter="handleButtonMouseEnter"
             @mouseleave="handleButtonMouseLeave" class="configurator__button" @click="addToStorage">Добавить в
             хранилище</button>
 
@@ -100,6 +100,7 @@ onMounted(async () => {
     border-radius: 10px;
     box-shadow: 0px 7px 12px 0px rgba(100, 100, 111, 0.2);
     margin-top: 30px;
+    transition: .5s;
 }
 .configurator__config-select {
     margin-left: 10px;
