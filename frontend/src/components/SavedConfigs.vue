@@ -1,21 +1,11 @@
 <script setup lang="ts">
 import { useCoffeeMachineStore } from '../stores/index';
 import { CountAction } from '../types'
-import { Ref, ref } from 'vue'
 
 const { data, editCounter, deleteItem } = useCoffeeMachineStore()
 
 const changeCount = (action: CountAction, id: number) => {
     editCounter(action, id)
-}
-
-const isDelHovered: Ref<boolean> = ref(false);
-
-const handleButtonMouseEnter = () => {
-    isDelHovered.value = true;
-}
-const handleButtonMouseLeave = () => {
-    isDelHovered.value = false;
 }
 
 </script>
@@ -33,8 +23,7 @@ const handleButtonMouseLeave = () => {
                         <button class="item-count-button" @click="changeCount('decrement', item.id)">-</button>
                     </div>
                 </div>
-                <button :class="{ 'hovered': isDelHovered }" @mouseenter="handleButtonMouseEnter"
-                @mouseleave="handleButtonMouseLeave" @click='deleteItem(item.id)' class="item-delete">delete</button>
+                <button @click='deleteItem(item.id)' class="item-delete">delete</button>
             </li>
         </ul>
     </div>
@@ -69,6 +58,7 @@ const handleButtonMouseLeave = () => {
     width: 100%;
     margin-top: 15px;
     border-radius: 10px;
+    align-items: center;
 }
 .item-size{
     display: flex;
@@ -96,7 +86,6 @@ const handleButtonMouseLeave = () => {
     cursor: pointer;
     border-radius: 10px;
     box-shadow: 0px 7px 12px 0px rgba(100, 100, 111, 0.2);
-    margin-top: 30px;
     text-transform: uppercase;
     font-weight: bold;
     transition: .5s;
@@ -108,6 +97,7 @@ const handleButtonMouseLeave = () => {
 .item-option{
     width: 100%;
     display: flex;
+    align-items: center;
 }
 .item-value {
     margin-left: 20px;
@@ -125,7 +115,7 @@ const handleButtonMouseLeave = () => {
     font-weight: bold;
     transition: .5s;
 }
-.item-delete.hovered {
+.item-delete:hover {
     transition: .5s;
     box-shadow: 0px 7px 12px 0px rgba(100, 100, 111, 0.8);
 }
